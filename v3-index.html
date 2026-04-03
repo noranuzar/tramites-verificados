@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazlo Tú Mismo — Trámites en España explicados paso a paso</title>
+<meta name="description" content="Guías gratuitas para entender los trámites en España sin complicarte. Empadronamiento, extranjería, NIE, TIE, regularización 2026 y más.">
+<meta name="author" content="Nora Núñez Zárate">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://hazlotumismo.es/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hazlo Tú Mismo _Adm">
+<meta property="og:title" content="Trámites en España, explicados por fin">
+<meta property="og:description" content="Guías gratuitas paso a paso, con palabras normales.">
+<meta property="og:url" content="https://hazlotumismo.es/">
+<meta property="og:image" content="https://hazlotumismo.es/img/og-cover.jpg">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3-style.css">
+</head>
+
+<body>
+<a href="#main-content" class="skip">Ir al contenido principal</a>
+
+<!-- TICKER: Se renderiza automáticamente desde WEB_DATA -->
+<div class="ticker" id="ticker" role="alert" aria-live="polite">
+  <div class="ticker__track" id="ticker-track"></div>
+  <button class="ticker__close" id="ticker-close" aria-label="Cerrar">✕</button>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">Hazlo Tú Mismo <i>_Adm</i></a>
+    <button class="nav__toggle" aria-label="Menú" aria-expanded="false" aria-controls="main-menu" id="menu-toggle"><span></span><span></span><span></span></button>
+    <nav id="main-menu" class="nav__menu" aria-label="Navegación principal">
+      <a href="#inicio" class="nav__link">Inicio</a>
+      <a href="#como-ayudo" class="nav__link">Cómo te ayudo</a>
+      <a href="#guias" class="nav__link">Guías</a>
+      <a href="#sobre-mi" class="nav__link">Sobre mí</a>
+      <a href="#contacto" class="nav__link">Contacto</a>
+      <a href="#acompanamiento" class="nav__cta">Necesito ayuda →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main-content">
+
+  <!-- HERO -->
+  <section class="hero section" id="inicio">
+    <div class="hero__shape hero__shape--1" aria-hidden="true"></div>
+    <div class="hero__shape hero__shape--2" aria-hidden="true"></div>
+    <div class="hero__shape hero__shape--3" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <span class="hero__pill"><span class="hero__pill-dot"></span> Para ti, que no sabes por dónde empezar</span>
+        <h1>No estás perdido.<br>Solo necesitas que alguien <em>te lo explique bien</em></h1>
+        <div class="byline">
+          <span class="byline__tag byline__tag--author">✍️ Traducido por Nora</span>
+          <span class="byline__sep">·</span>
+          <span class="byline__tag byline__tag--verified">✅ Verificado: <time datetime="2026-04">Abril 2026</time></span>
+          <span class="byline__sep">·</span>
+          <span class="byline__tag byline__tag--source">📌 Fuente oficial</span>
+        </div>
+        <p class="hero__desc">Los trámites en España pueden ser un laberinto. Pero no tienes por qué recorrerlo solo. Aquí te explico las cosas como son, con palabras normales y sin enrollarme.</p>
+        <div class="hero__actions">
+          <a href="#guias" class="btn btn--clay">📖 Ver guías gratis</a>
+          <a href="#contacto" class="btn btn--sage">💬 Necesito ayuda</a>
+          <a href="#acompanamiento" class="btn btn--ghost">🤝 Acompañamiento</a>
+        </div>
+      </div>
+      <div class="hero__cards">
+        <div class="hero__card"><span class="hero__card-emoji">😰</span><p>"No entiendo nada de lo que me piden en Extranjería…"</p><span class="hero__card-answer">→ Te lo explico paso a paso</span></div>
+        <div class="hero__card"><span class="hero__card-emoji">😤</span><p>"Pagué a un gestor y al final tuve que hacerlo yo…"</p><span class="hero__card-answer">→ Aquí aprendes a hacerlo tú</span></div>
+        <div class="hero__card"><span class="hero__card-emoji">🫠</span><p>"No sé ni qué papeles necesito para empezar…"</p><span class="hero__card-answer">→ Empezamos desde cero, sin prisa</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUMEN TIKTOK -->
+  <section class="section" style="padding-top:0;padding-bottom:32px">
+    <div class="quick-summary sr" id="qs-container">
+      <!-- Se renderiza desde WEB_DATA.resumen -->
+    </div>
+
+    <!-- CALENDARIO: Se renderiza automáticamente -->
+    <aside class="calendar sr" id="cal-container">
+      <div class="cal__header">
+        <div class="cal__title"><h2 id="cal-title"></h2></div>
+        <div class="cal__live"><span class="cal__live-dot"></span> Fechas clave</div>
+      </div>
+      <div id="cal-events" role="list"></div>
+    </aside>
+  </section>
+
+  <!-- EMPATÍA -->
+  <section class="empathy section" id="empatia">
+    <div class="container">
+      <div class="empathy__intro sr">
+        <span class="tag">Esto es para ti si…</span>
+        <h2 class="sec-title">¿Te suena algo de esto?</h2>
+        <p class="sec-desc" style="margin:0 auto">Si alguna de estas frases te suena, estás en el lugar correcto. No eres tú el problema — es que nadie te lo ha explicado bien.</p>
+      </div>
+      <div class="empathy__grid" role="list">
+        <div class="empathy__item sr" role="listitem"><span class="empathy__icon">📄</span><p>"Cada vez que voy a una oficina, salgo con más dudas que antes"</p></div>
+        <div class="empathy__item sr" role="listitem"><span class="empathy__icon">🔄</span><p>"Me mandan de un sitio a otro y nadie me da una respuesta clara"</p></div>
+        <div class="empathy__item sr" role="listitem"><span class="empathy__icon">💸</span><p>"No sé si necesito un gestor o si puedo hacerlo yo"</p></div>
+        <div class="empathy__item sr" role="listitem"><span class="empathy__icon">😶</span><p>"Me da vergüenza preguntar porque siento que debería saberlo"</p></div>
+      </div>
+      <aside class="empathy__resolve sr"><p>Si te identificas con alguna… respira. Aquí nadie te juzga, nadie te apura y todo se explica con calma.</p></aside>
+    </div>
+  </section>
+
+  <!-- GUÍAS — 3 placeholders -->
+  <section class="guides section" id="guias">
+    <div class="container">
+      <span class="tag sr">Guías prácticas</span>
+      <h2 class="sec-title sr">Empieza por aquí — gratis y explicado como se debe</h2>
+      <p class="sec-desc sr">Cada guía está escrita como te la contaría alguien que ya pasó por eso.</p>
+      <div class="guides__list" role="list">
+        <!-- GUÍA 1: Reemplaza href, título, descripción -->
+        <a href="[ENLACE_GUIA_1]" class="guide guide--placeholder sr" role="listitem">
+          <div class="guide__icon">📋</div>
+          <div class="guide__content">
+            <h3>[TÍTULO DE TU PRIMERA GUÍA]</h3>
+            <p>[Breve resumen en 1-2 frases]</p>
+            <div class="guide__meta"><span class="guide__badge guide__badge--pop">Popular</span><time datetime="2026-04">Abr 2026</time></div>
+          </div>
+          <span class="guide__arrow">→</span>
+        </a>
+        <!-- GUÍA 2 -->
+        <a href="[ENLACE_GUIA_2]" class="guide guide--placeholder sr" role="listitem">
+          <div class="guide__icon">🆕</div>
+          <div class="guide__content">
+            <h3>[TÍTULO DE TU SEGUNDA GUÍA]</h3>
+            <p>[Breve resumen en 1-2 frases]</p>
+            <div class="guide__meta"><span class="guide__badge guide__badge--new">Nueva</span><time datetime="2026-04">Abr 2026</time></div>
+          </div>
+          <span class="guide__arrow">→</span>
+        </a>
+        <!-- GUÍA 3 -->
+        <a href="[ENLACE_GUIA_3]" class="guide guide--placeholder sr" role="listitem">
+          <div class="guide__icon">🔐</div>
+          <div class="guide__content">
+            <h3>[TÍTULO DE TU TERCERA GUÍA]</h3>
+            <p>[Breve resumen en 1-2 frases]</p>
+            <div class="guide__meta"><span class="guide__badge guide__badge--free">Gratis</span><time datetime="2026-04">Abr 2026</time></div>
+          </div>
+          <span class="guide__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACOMPAÑAMIENTO -->
+  <section class="accompany section" id="acompanamiento">
+    <div class="container">
+      <div class="accompany__layout">
+        <div class="accompany__text sr">
+          <span class="tag">Acompañamiento</span>
+          <h2>¿Y si necesitas más que una guía?</h2>
+          <p>Las guías están pensadas para que puedas hacer las cosas por tu cuenta. Pero a veces un trámite se complica. Para eso está el acompañamiento.</p>
+        </div>
+        <div class="accompany__card sr">
+          <blockquote class="accompany__quote">"No se trata de que yo haga las cosas por ti. Se trata de que tú puedas hacerlas con la confianza de saber que alguien te respalda."</blockquote>
+          <div class="accompany__cta">
+            <a href="#contacto" class="btn btn--clay" style="width:100%">Cuéntame tu caso →</a>
+            <p class="accompany__micro">Primera consulta gratuita. Sin compromiso.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact section" id="contacto">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__left sr">
+          <span class="tag">Hablemos</span>
+          <h2>¿Tienes un trámite y no sabes por dónde empezar?</h2>
+          <p>Escríbeme. Cuéntame qué necesitas y te digo si puedo ayudarte.</p>
+          <div class="contact__channels">
+            <a href="https://wa.me/34697154442" class="ch" target="_blank" rel="noopener"><div class="ch__icon ch__icon--wa">💬</div><div class="ch__info"><h4>WhatsApp</h4><p>La forma más rápida.</p></div></a>
+            <a href="mailto:tu-email@ejemplo.com" class="ch"><div class="ch__icon ch__icon--em">✉️</div><div class="ch__info"><h4>Email</h4><p>Si prefieres escribir con calma.</p></div></a>
+            <a href="https://instagram.com/hazlotumismo_adm" class="ch" target="_blank" rel="noopener"><div class="ch__icon ch__icon--ig">📸</div><div class="ch__info"><h4>@hazlotumismo_adm</h4><p>Tips y comunidad.</p></div></a>
+          </div>
+        </div>
+        <aside class="contact__right sr">
+          <h3>Mi compromiso contigo</h3>
+          <ul class="promise__list">
+            <li><span class="ck">✓</span> Te respondo en menos de 24 horas</li>
+            <li><span class="ck">✓</span> No te voy a vender nada que no necesites</li>
+            <li><span class="ck">✓</span> Si no puedo ayudarte, te digo a dónde ir</li>
+            <li><span class="ck">✓</span> Tu primera consulta es gratuita</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__logo">Hazlo Tú Mismo _Adm</div>
+  <div class="footer__slogan">Paso a paso contigo, sin complicarte</div>
+  <nav class="footer__links"><a href="#inicio">Inicio</a><a href="#guias">Guías</a><a href="#acompanamiento">Acompañamiento</a><a href="#contacto">Contacto</a></nav>
+  <p class="footer__copy">© 2026 Hazlo Tú Mismo _Adm · Nora Núñez Zárate · Madrid</p>
+</footer>
+<a href="https://wa.me/34697154442" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">💬<span class="wa-float__sr">WhatsApp</span></a>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  WEB_DATA — TU CEREBRO CENTRAL                                  ║
+     ║  ────────────────────────────────────────────────────────────    ║
+     ║  Aquí editas TODO el contenido dinámico de la web.               ║
+     ║  Ticker, calendario y resumen se renderizan automáticamente.     ║
+     ║  NO necesitas tocar el HTML de arriba para actualizar datos.     ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<script>
+const WEB_DATA = {
+
+  // ── TICKER: Noticias de la marquesina ──
+  // Añade, quita o edita noticias aquí. Se renderizan solas.
+  // Si el array está vacío, el ticker se oculta automáticamente.
+  ticker: [
+    { texto: "📢 ÚLTIMA HORA: Lotes de NIE Madrid (2026/042) actualizados", enlace: "#guias" },
+    { texto: "📅 Cambio tasas modelo 790 desde el 30 de abril", enlace: "#guias" },
+    { texto: "🏠 Ayudas alquiler Madrid: plazo hasta el 15/04", enlace: "#guias" },
+  ],
+
+  // ── CALENDARIO: Eventos con plazos ──
+  // Los eventos pasados se ocultan solos.
+  // Si todos han pasado, el calendario desaparece.
+  // Formato fecha: "2026-04-15" (año-mes-día)
+  calendario: {
+    titulo: "📆 Agenda Abril 2026",
+    eventos: [
+      { fecha: "2026-04-15", titulo: "Límite Ayudas Alquiler", desc: "Último día para solicitar la ayuda al alquiler de la Comunidad de Madrid 2026.", urgencia: "high" },
+      { fecha: "2026-04-22", titulo: "Nuevos Lotes NIE", desc: "Publicación de nuevos lotes de citas NIE para Madrid y Barcelona.", urgencia: "mid" },
+      { fecha: "2026-04-30", titulo: "Cambio Tasas 790", desc: "Nuevos importes para el modelo 790. Si tienes trámite pendiente, paga antes.", urgencia: "info" },
+    ]
+  },
+
+  // ── RESUMEN TIKTOK: 3 puntos clave ──
+  resumen: {
+    titulo: "Resumen en 30 segundos",
+    subtitulo: "Lo más importante de esta semana",
+    fuente: "BOE-A-2021-465",
+    fechaActualizacion: "3 abril 2026",
+    puntos: [
+      { titulo: "📋 Nuevos lotes NIE Madrid", desc: "Lote 2026/042 disponible. Incluye citas para primera asignación y duplicados." },
+      { titulo: "📅 Cambio en tasas el 30/04", desc: "El modelo 790 actualiza importes. Si tienes un trámite pendiente, hazlo antes." },
+      { titulo: "🏠 Ayudas alquiler: último día 15/04", desc: "Plazo límite para solicitar ayudas al alquiler en la Comunidad de Madrid." },
+    ]
+  }
+};
+</script>
+
+<!-- MOTOR DE RENDERIZADO (no tocar) -->
+<script defer>
+(function(){
+  'use strict';
+  const D = WEB_DATA;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+
+  // ── TICKER ──
+  const tickerEl = $('#ticker');
+  const trackEl = $('#ticker-track');
+  if (D.ticker.length === 0) {
+    tickerEl.classList.add('hidden');
+    document.body.classList.add('ticker-closed');
+  } else {
+    let html = '<span class="ticker__live"><span class="ticker__dot"></span> En directo</span>';
+    D.ticker.forEach(n => {
+      html += `<span class="ticker__item">${n.texto} <a href="${n.enlace}" class="ticker__link">Ver más →</a></span>`;
+    });
+    // Duplicar para loop infinito
+    trackEl.innerHTML = html + html;
+    // Velocidad proporcional al contenido
+    const speed = Math.max(18, D.ticker.length * 9);
+    trackEl.style.setProperty('--marquee-speed', speed + 's');
+  }
+  $('#ticker-close')?.addEventListener('click', () => {
+    tickerEl.classList.add('hidden');
+    document.body.classList.add('ticker-closed');
+  });
+
+  // ── CALENDARIO INTELIGENTE ──
+  const calContainer = $('#cal-container');
+  const calEventsEl = $('#cal-events');
+  const calTitle = $('#cal-title');
+  const futureEvents = D.calendario.eventos.filter(e => {
+    const d = new Date(e.fecha + 'T00:00:00');
+    return d >= today;
+  });
+
+  if (futureEvents.length === 0) {
+    calContainer.style.display = 'none';
+  } else {
+    calTitle.textContent = D.calendario.titulo;
+    futureEvents.forEach(e => {
+      const d = new Date(e.fecha + 'T00:00:00');
+      const diff = Math.ceil((d - today) / 864e5);
+      const isToday = diff === 0;
+      const day = d.getDate();
+      const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+      const month = months[d.getMonth()];
+      const urgLabels = { high: 'Urgente', mid: 'Próximamente', info: 'Informativo' };
+
+      const div = document.createElement('div');
+      div.className = 'cal__event' + (isToday ? ' cal__event--today' : '');
+      div.setAttribute('role', 'listitem');
+      div.innerHTML = `
+        <div class="cal__date"><span class="cal__date-day">${day}</span><span class="cal__date-month">${month}</span></div>
+        <div class="cal__info"><h3>${e.titulo}</h3><p>${e.desc}</p><span class="cal__urgency cal__urgency--${e.urgencia}">${urgLabels[e.urgencia]||''}</span></div>
+        <div class="cal__countdown"><strong>${isToday ? 'HOY' : diff}</strong>${isToday ? '' : ' días'}</div>
+      `;
+      calEventsEl.appendChild(div);
+    });
+  }
+
+  // ── RESUMEN TIKTOK ──
+  const qsEl = $('#qs-container');
+  const R = D.resumen;
+  let qsHtml = `
+    <div class="qs__header"><div class="qs__icon">⚡</div><div class="qs__header-text"><h2>${R.titulo}</h2><p>${R.subtitulo}</p></div></div>
+    <div class="qs__points" role="list">`;
+  R.puntos.forEach((p, i) => {
+    qsHtml += `<div class="qs__point" role="listitem"><span class="qs__point-num">${i+1}</span><div class="qs__point-text"><h3>${p.titulo}</h3><p>${p.desc}</p></div></div>`;
+  });
+  qsHtml += `</div><div class="qs__footer"><span class="qs__source">⚖️ Fuente: ${R.fuente} · Actualizado ${R.fechaActualizacion}</span>`;
+  qsHtml += `<button class="qs__share" onclick="navigator.share?.({title:document.title,url:location.href}).catch(()=>{})">📤 Compartir</button></div>`;
+  qsEl.innerHTML = qsHtml;
+
+  // ── NAV ──
+  window.addEventListener('scroll', () => { $('#nav').classList.toggle('solid', scrollY > 40); }, { passive: true });
+
+  // ── MENÚ MÓVIL ──
+  const toggle = $('#menu-toggle'), menu = $('#main-menu');
+  if (toggle) {
+    toggle.addEventListener('click', () => { const o = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', o); });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
+    document.addEventListener('keydown', e => { if(e.key==='Escape'&&menu.classList.contains('open')){ menu.classList.remove('open'); toggle.focus(); }});
+  }
+
+  // ── SCROLL REVEAL ──
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('on'), i*60); obs.unobserve(e.target); }});
+    }, { threshold: .1, rootMargin: '0px 0px -30px 0px' });
+    $$('.sr').forEach(el => obs.observe(el));
+  } else $$('.sr').forEach(el => el.classList.add('on'));
+
+  // ── REDUCE MOTION ──
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) $$('.sr').forEach(el => { el.style.transition='none'; el.classList.add('on'); });
+})();
+</script>
+</body>
+</html>
