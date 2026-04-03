@@ -202,9 +202,57 @@
       </div>
     </div>
   </section>
+<section class="section about-nora-section" id="sobre-mi">
+  <div class="container sr">
+    <div class="about-card">
+      <div class="about-card__grid">
+        <div class="about-card__image">
+          <img src="img/nora-perfil.png" alt="Nora Núñez Zárate" onerror="this.src='https://ui-avatars.com/api/?name=Nora+Nuñez&background=F28C28&color=fff&size=512'">
+          <div class="about-card__badge">15+ años exp.</div>
+        </div>
+        
+        <div class="about-card__text">
+          <span class="tag">Conoce a quien te ayuda</span>
+          <h2 class="about-card__name">Nora Núñez Zárate</h2>
+          <p class="about-card__role">Gestora de información documental</p>
+          
+          <ul class="about-card__list">
+            <li><span>🎓</span> <strong>Licenciada en Documentación</strong> por la UC3M.</li>
+            <li><span>💼</span> <strong>Más de 15 años</strong> en la Administración Pública.</li>
+            <li><span>📂</span> <strong>Gestora de expedientes</strong> en TRAGSATEC (IMV, RENOVE, PEAC).</li>
+            <li><span>🌍</span> <strong>30 años en España.</strong> Llegué como migrante y sé lo que sientes.</li>
+          </ul>
+          
+          <blockquote class="about-card__motto">
+            "Y hoy vengo a enseñarte lo que sé."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .about-card { background: #1a1a1a; border-radius: 24px; overflow: hidden; border: 1px solid #333; margin-top: 40px; }
+  .about-card__grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 0; }
+  .about-card__image { position: relative; background: #222; display: flex; align-items: center; justify-content: center; min-height: 400px; }
+  .about-card__image img { width: 100%; height: 100%; object-fit: cover; }
+  .about-card__badge { position: absolute; bottom: 20px; left: 20px; background: #F28C28; color: white; padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; }
+  .about-card__text { padding: 60px; }
+  .about-card__name { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: white; margin: 10px 0; }
+  .about-card__role { color: #F28C28; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem; }
+  .about-card__list { list-style: none; padding: 0; margin-bottom: 2rem; }
+  .about-card__list li { display: flex; gap: 15px; margin-bottom: 15px; color: #ccc; font-size: 1.1rem; line-height: 1.4; }
+  .about-card__list li span { font-size: 1.3rem; }
+  .about-card__motto { font-family: 'Playfair Display', serif; font-style: italic; color: #F28C28; font-size: 1.5rem; border-left: 3px solid #F28C28; padding-left: 20px; margin: 0; }
+  
+  @media (max-width: 768px) {
+    .about-card__grid { grid-template-columns: 1fr; }
+    .about-card__text { padding: 40px 30px; }
+    .about-card__name { font-size: 2rem; }
+  }
+</style>
 </main>
-
-<!-- FOOTER -->
+  <!-- FOOTER -->
 <footer class="footer">
   <div class="footer__logo">Hazlo Tú Mismo _Adm</div>
   <div class="footer__slogan">Paso a paso contigo, sin complicarte</div>
