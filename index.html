@@ -73,12 +73,47 @@
           <a href="#acompanamiento" class="btn btn--ghost">🤝 Acompañamiento</a>
         </div>
       </div>
-     <div class="hero__cards">
-  <div class="hero__card">
-    <span class="hero__card-emoji" aria-hidden="true">🛂</span>
-    <p><strong>Extranjería</strong></p>
-    <span class="hero__card-answer">NIE, TIE, regularización, citas y renovaciones. Todo lo que necesitas si vienes de fuera.</span>
-    <a href="#guias" class="btn btn--ghost" style="margin-top:12px;padding:8px 18px;font-size:.8rem">Ver guías de extranjería →</a>
+    <!-- CARRUSEL PRINCIPAL -->
+<div class="hero__carousel" id="carousel" aria-label="Noticias destacadas">
+  <div class="carousel__track" id="carousel-track">
+
+    <!-- SLIDE 1 -->
+    <div class="carousel__slide carousel__slide--active" data-slide="0">
+      <span class="carousel__icon" aria-hidden="true">📜</span>
+      <h2 class="carousel__title">Estado del BOE: Dictamen Final</h2>
+      <p class="carousel__desc">El Real Decreto está en el Consejo de Estado. Apertura prevista: Abril 2026.</p>
+      <a href="#guias" class="btn btn--clay carousel__btn">Ver Boletín Oficial →</a>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="carousel__slide" data-slide="1">
+      <span class="carousel__icon" aria-hidden="true">🔍</span>
+      <h2 class="carousel__title">Diagnóstico de Arraigo 2026</h2>
+      <p class="carousel__desc">El borrador exige estancia previa al 1 de enero. Verifica si tus documentos son válidos.</p>
+      <a href="#guias" class="btn btn--clay carousel__btn">Iniciar Diagnóstico →</a>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="carousel__slide" data-slide="2">
+      <span class="carousel__icon" aria-hidden="true">⚠️</span>
+      <h2 class="carousel__title">Alerta de Seguridad</h2>
+      <p class="carousel__desc">No hay formularios oficiales aún. Cuidado con webs fraudulentas. Infórmate aquí.</p>
+      <a href="#guias" class="btn btn--clay carousel__btn">Ver Guía de Seguridad →</a>
+    </div>
+
+  </div>
+
+  <!-- Controles -->
+  <div class="carousel__controls">
+    <button class="carousel__arrow carousel__arrow--prev" id="car-prev" aria-label="Slide anterior">‹</button>
+    <div class="carousel__dots" id="carousel-dots">
+      <button class="carousel__dot carousel__dot--active" data-goto="0" aria-label="Ir a slide 1"></button>
+      <button class="carousel__dot" data-goto="1" aria-label="Ir a slide 2"></button>
+      <button class="carousel__dot" data-goto="2" aria-label="Ir a slide 3"></button>
+    </div>
+    <button class="carousel__arrow carousel__arrow--next" id="car-next" aria-label="Slide siguiente">›</button>
+  </div>
+</div>
   </div>
 
   <div class="hero__card">
