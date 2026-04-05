@@ -361,6 +361,48 @@ const WEB_DATA = {
 
 <!-- MOTOR DE RENDERIZADO (no tocar) -->
 <script defer>
+  // ── CARRUSEL ──
+  const slides = document.querySelectorAll('.carousel__slide');
+  const dots = document.querySelectorAll('.carousel__dot');
+  const prevBtn = document.getElementById('car-prev');
+  const nextBtn = document.getElementById('car-next');
+
+  if (slides.length > 0) {
+    let current = 0;
+    let autoplay;
+
+    function goTo(n) {
+      slides[current].classList.remove('carousel__slide--active');
+      dots[current].classList.remove('carousel__dot--active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('carousel__slide--active');
+      dots[current].classList.add('carousel__dot--active');
+    }
+
+    function startAutoplay() {
+      autoplay = setInterval(() => goTo(current + 1), 5000);
+    }
+
+    function resetAutoplay() {
+      clearInterval(autoplay);
+      startAutoplay();
+    }
+
+    prevBtn?.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+    nextBtn?.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.goto); resetAutoplay(); }));
+
+    // Swipe táctil (móvil)
+    let touchX = 0;
+    const track = document.getElementById('carousel-track');
+    track?.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    track?.addEventListener('touchend', e => {
+      const diff = touchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); resetAutoplay(); }
+    });
+
+    startAutoplay();
+  }
 (function(){
   'use strict';
   const D = WEB_DATA;
