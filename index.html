@@ -328,7 +328,7 @@ const WEB_DATA = {
 <!-- MOTOR DE RENDERIZADO (no tocar) -->
 <script defer>
 
-    prevBtn?.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+   prevBtn?.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
     nextBtn?.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
     dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.goto); resetAutoplay(); }));
 
