@@ -1,1 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Adaptador de CV Inteligente</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f3ef;
+    margin: 0;
+    padding: 0;
+}
 
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #9caf88;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.progress {
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 10px;
+    width: 0%;
+    background: #9caf88;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>💼 Adapta tu CV en 1 minuto</h1>
+
+<div class="progress">
+<div class="progress-bar" id="progress"></div>
+</div>
+
+<div class="card" id="step1">
+<h3>1️⃣ Pega tu CV</h3>
+<p>💡 No te preocupes si no está perfecto</p>
+<textarea id="cv"></textarea>
+<button onclick="nextStep(2)">Siguiente</button>
+</div>
+
+<div class="card hidden" id="step2">
+<h3>2️⃣ Pega la oferta de trabajo</h3>
+<p>💡 Ejemplo: atención al cliente, ventas, trabajo en equipo...</p>
+<textarea id="job"></textarea>
+<button onclick="nextStep(3)">Siguiente</button>
+</div>
+
+<div class="card hidden" id="step3">
+<h3>3️⃣ Analizando tu perfil...</h3>
+<p>⏳ Estamos mejorando tu CV</p>
+<button onclick="processCV()">Generar resultado</button>
+</div>
+
+<div class="card hidden" id="result">
+<h3>✅ Tu CV optimizado</h3>
+<p id="optimized"></p>
+
+<h3>✨ Mejoras realizadas</h3>
+<ul id="improvements"></ul>
+
+<h3>📌 Recomendaciones</h3>
+<ul id="tips"></ul>
+
+<button onclick="copyResult()">📋 Copiar CV</button>
+</div>
+
+</div>
+
+<script>
+function nextStep(step) {
+    document.querySelectorAll('.card').forEach(el => el.classList.add('hidden'));
+    document.getElementById('step' + step).classList.remove('hidden');
+
+    let progress = step * 30;
+    document.getElementById('progress').style.width = progress + '%';
+}
+
+function extractKeywords(text) {
+    let words = text.toLowerCase().match(/\b\w+\b/g);
+    let common = ["de","la","el","en","y","a","con","para"];
+    return [...new Set(words.filter(w => w.length > 4 && !common.includes(w)))];
+}
+
+function improveText(cv, keywords) {
+    let improved = cv;
+
+    let replacements = {
+        "trabajé": "Desarrollé funciones profesionales en",
+        "ayudé": "Colaboré activamente en",
+        "hice": "Ejecuté tareas relacionadas con",
+        "limpieza": "mantenimiento y limpieza de espacios",
+        "tienda": "entorno comercial y atención al cliente"
+    };
+
+    let improvements = [];
+
+    for (let key in replacements) {
+        if (improved.includes(key)) {
+            improvements.push(`Antes: ${key} → Después: ${replacements[key]}`);
+            improved = improved.replaceAll(key, replacements[key]);
+        }
+    }
+
+    keywords.slice(0,5).forEach(k => {
+        if (!improved.includes(k)) {
+            improved += ", con experiencia en " + k;
+        }
+    });
+
+    return { improved, improvements };
+}
+
+function processCV() {
+    let cv = document.getElementById('cv').value;
+    let job = document.getElementById('job').value;
+
+    let keywords = extractKeywords(job);
+    let result = improveText(cv, keywords);
+
+    document.getElementById('optimized').innerText = result.improved;
+
+    let improvementsList = document.getElementById('improvements');
+    improvementsList.innerHTML = "";
+    result.improvements.forEach(i => {
+        let li = document.createElement('li');
+        li.innerText = i;
+        improvementsList.appendChild(li);
+    });
+
+    let tips = [
+        "Añade logros concretos (años, resultados)",
+        "Incluye palabras clave de la oferta",
+        "Sé claro y directo",
+        "Adapta tu CV a cada empleo"
+    ];
+
+    let tipsList = document.getElementById('tips');
+    tipsList.innerHTML = "";
+    tips.forEach(t => {
+        let li = document.createElement('li');
+        li.innerText = t;
+        tipsList.appendChild(li);
+    });
+
+    document.querySelectorAll('.card').forEach(el => el.classList.add('hidden'));
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('progress').style.width = "100%";
+}
+
+function copyResult() {
+    let text = document.getElementById('optimized').innerText;
+    navigator.clipboard.writeText(text);
+    alert("CV copiado ✅");
+}
+</script>
+
+</body>
+</html>
