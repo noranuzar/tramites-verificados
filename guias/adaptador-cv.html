@@ -200,16 +200,35 @@
         }
 
         function downloadPDF() {
-            const element = document.getElementById('cv-to-print');
-            const opt = {
-                margin: [0.5, 0.5],
-                filename: 'Mi_CV_Profesional.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
+    const element = document.getElementById('cv-to-print');
+    
+    // Aseguramos que el elemento sea visible para la captura
+    element.style.display = 'block'; 
+
+    const opt = {
+        margin: [10, 10, 10, 10], // Margen en milímetros
+        filename: 'Mi_CV_Profesional_Nora.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            letterRendering: true 
+        },
+        jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait' 
         }
+    };
+
+    // Ejecutamos la descarga
+    html2pdf().set(opt).from(element).save().then(() => {
+        console.log("PDF generado con éxito");
+    }).catch(err => {
+        console.error("Error al generar PDF:", err);
+        alert("Hubo un error al generar el PDF. Por favor, intenta copiar el texto manualmente.");
+    });
+}
     </script>
 </body>
 </html>
