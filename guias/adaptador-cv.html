@@ -3,41 +3,44 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Constructor y Adaptador de CV — Hazlo Tú Mismo</title>
+    <title>Adaptador de CV Profesional y PEAC — Hazlo Tú Mismo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Libre+Franklin:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
-        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; --ink: #1a1a1a; }
-        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; padding-top: 60px; color: var(--ink); }
+        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; --euro-blue: #004494; }
+        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; padding-top: 60px; }
         .tool-container { max-width: 850px; margin: 40px auto; padding: 20px; }
         .tool-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e0ddd5; }
         
-        /* Selectores de nivel */
+        /* Sistema de niveles */
         .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
-        .level-card { border: 2px solid #eee; padding: 25px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-align: center; background: #fff; }
-        .level-card:hover { border-color: var(--sage); background: #fdfaf3; transform: translateY(-3px); }
-        .level-card.active { border-color: var(--sage); background: #f9fbf8; box-shadow: 0 4px 15px rgba(156, 175, 136, 0.2); }
-        .level-card i { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+        .level-card { border: 2px solid #eee; padding: 25px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-align: center; background: white; }
+        .level-card:hover { border-color: var(--sage); transform: translateY(-3px); }
+        .level-card.active { border-color: var(--sage); background: #f9fbf8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .level-card i { font-size: 2.5rem; display: block; margin-bottom: 10px; }
 
         .progress-bar { height: 8px; background: #eee; border-radius: 10px; margin-bottom: 40px; overflow: hidden; }
         #progress-fill { height: 100%; background: var(--sage); width: 25%; transition: 0.5s ease; }
         
-        textarea { width: 100%; height: 160px; padding: 18px; border: 2px solid #eee; border-radius: 12px; font-family: inherit; font-size: 1rem; margin-top: 10px; box-sizing: border-box; transition: 0.3s; resize: vertical; }
+        textarea { width: 100%; height: 160px; padding: 18px; border: 2px solid #eee; border-radius: 12px; font-family: inherit; font-size: 1rem; margin-top: 10px; box-sizing: border-box; resize: vertical; }
         textarea:focus { border-color: var(--sage); outline: none; background: #fcfdfb; }
         
-        .btn-tool { background: var(--sage); color: white; border: none; padding: 18px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; transition: 0.3s; }
-        .btn-tool:hover { background: var(--sage-dark); transform: translateY(-2px); }
+        .btn-tool { background: var(--sage); color: white; border: none; padding: 18px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; transition: 0.3s; display: block; text-align: center; text-decoration: none; }
+        .btn-tool:hover { background: var(--sage-dark); }
         
-        .cv-preview { background: white; border: 1px solid #ddd; padding: 40px; border-radius: 4px; color: #333; font-family: 'Arial', sans-serif; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .cv-section-title { color: var(--sage-dark); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; margin-top: 25px; border-bottom: 1px solid #eee; letter-spacing: 1.5px; padding-bottom: 5px; }
+        /* Estilo del CV para PDF (Estructura Europea) */
+        #cv-to-print { background: white; padding: 40px; color: #333; font-family: 'Arial', sans-serif; line-height: 1.6; border: 1px solid #eee; }
+        .cv-header { border-bottom: 2px solid var(--euro-blue); padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .cv-row { display: grid; grid-template-columns: 180px 1fr; margin-bottom: 25px; gap: 30px; }
+        .cv-left { color: var(--euro-blue); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .cv-right { font-size: 0.95rem; color: #444; }
         
         .hidden { display: none; }
-        .nora-advice { background: #fdfaf3; padding: 20px; border-radius: 12px; border-left: 5px solid #e6ccb2; margin: 25px 0; font-size: 0.95rem; line-height: 1.5; }
-        .error-msg { color: #d9534f; font-size: 0.85rem; margin-top: 8px; display: none; font-weight: 600; }
-        
-        .wa-check { background: #25D366; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: 12px; margin-top: 15px; font-weight: 600; transition: 0.3s; }
-        .wa-check:hover { background: #128C7E; opacity: 0.9; }
+        .error-msg { color: #d9534f; font-size: 0.85rem; margin-top: 10px; display: none; background: #fee; padding: 12px; border-radius: 8px; border: 1px solid #fcc; }
+        .nora-advice { background: #fdfaf3; padding: 15px; border-radius: 12px; border-left: 5px solid #e6ccb2; margin: 20px 0; font-size: 0.9rem; }
     </style>
 </head>
 
@@ -51,69 +54,76 @@
             <div class="progress-bar"><div id="progress-fill"></div></div>
 
             <div id="step1">
-                <h2 style="font-family: 'Playfair Display'; text-align:center; font-size: 2rem;">¿Qué perfil vamos a trabajar?</h2>
-                <p style="text-align:center; color: #666;">Selecciona tu perfil para que Nora pueda orientar tus palabras correctamente:</p>
+                <h2 style="font-family: 'Playfair Display'; text-align:center;">¿Qué tipo de perfil trabajamos?</h2>
                 <div class="level-grid">
                     <div class="level-card" onclick="selectLevel('operativo')">
                         <i>🛠️</i>
                         <strong>Sector Operativo</strong>
-                        <p style="font-size:0.8rem; color:#888; margin-top:8px;">Hostelería, Limpieza, Almacén, Cuidados, etc.</p>
+                        <p style="font-size:0.75rem; color:#888;">Hostelería, Limpieza, Construcción...</p>
                     </div>
                     <div class="level-card" onclick="selectLevel('profesional')">
                         <i>🎓</i>
-                        <strong>Sector Profesional / Uni</strong>
-                        <p style="font-size:0.8rem; color:#888; margin-top:8px;">Administración, Diseño, Ingeniería, recién graduados, etc.</p>
+                        <strong>Sector Profesional / PEAC</strong>
+                        <p style="font-size:0.75rem; color:#888;">Administración, Universidad, Acreditaciones...</p>
                     </div>
                 </div>
                 <div id="advice-level" class="nora-advice hidden"></div>
-                <button class="btn-tool hidden" id="btn-next-1" onclick="goToStep(2)">Continuar con mi CV →</button>
+                <button class="btn-tool hidden" id="btn-next-1" onclick="goToStep(2)">Comenzar Adaptación →</button>
             </div>
 
             <div id="step2" class="hidden">
-                <h2 id="step2-title" style="font-family: 'Playfair Display';">Tu experiencia</h2>
-                <p id="step2-desc" style="color: #666;"></p>
-                <textarea id="cv-input" placeholder="Ej: Trabajé 2 años como administrativo llevando facturas y atendiendo al público..."></textarea>
-                <p id="err2" class="error-msg">⚠️ Por favor, escribe un poco sobre tu trayectoria para continuar.</p>
+                <h2 id="step2-title" style="font-family: 'Playfair Display';">Tu experiencia laboral</h2>
+                <p id="step2-desc" style="color:#666; font-size:0.9rem;"></p>
+                <textarea id="cv-input" placeholder="Ej: He trabajado 3 años en una empresa de logística gestionando el almacén y el inventario..."></textarea>
+                <div id="err2" class="error-msg">⚠️ Por favor, describe tu experiencia de forma clara. Evita textos incoherentes o demasiado cortos para que la adaptación sea efectiva.</div>
                 <button class="btn-tool" onclick="validateStep2()">Siguiente: La Oferta →</button>
             </div>
 
             <div id="step3" class="hidden">
-                <h2 style="font-family: 'Playfair Display';">¿A qué puesto aplicas?</h2>
-                <p style="color: #666;">Pega la descripción de la oferta o el nombre del puesto que buscas en LinkedIn/Infojobs.</p>
-                <textarea id="job-input" placeholder="Ej: Se busca personal para gestión administrativa y soporte comercial..."></textarea>
-                <p id="err3" class="error-msg">⚠️ Necesito saber a qué puesto aspiras para adaptar el texto.</p>
-                <button class="btn-tool" onclick="validateStep3()">Generar mi CV Adaptado ✨</button>
+                <h2 style="font-family: 'Playfair Display';">Puesto al que aspiras</h2>
+                <p style="color:#666; font-size:0.9rem;">Pega el nombre del puesto o la descripción de la oferta.</p>
+                <textarea id="job-input" placeholder="Ej: Se busca administrativo con conocimientos en gestión de bases de datos..."></textarea>
+                <div id="err3" class="error-msg">⚠️ Necesito saber a qué puesto aplicas para optimizar tu CV.</div>
+                <button class="btn-tool" onclick="validateStep3()">Generar mi CV Profesional ✨</button>
             </div>
 
             <div id="result-step" class="hidden">
-                <h2 style="color: var(--sage-dark); font-family: 'Playfair Display'; text-align: center;">Tu Borrador Profesional</h2>
-                <p style="text-align: center; font-size: 0.9rem; margin-bottom: 25px;">Copia este contenido y pégalo en tu plantilla de currículum.</p>
-                
-                <div class="cv-preview">
-                    <div style="text-align:center; margin-bottom:20px;">
-                        <h2 style="margin:0; letter-spacing:2px; font-size: 1.4rem;">[TU NOMBRE COMPLETO]</h2>
-                        <p style="font-size:0.8rem; color: #777;">Teléfono | Email | Perfil en LinkedIn | Madrid, España</p>
+                <h2 style="text-align:center; font-family: 'Playfair Display'; color: var(--sage-dark);">Tu CV está listo</h2>
+                <p style="text-align:center; font-size:0.9rem; margin-bottom:20px;">Revisa tu información y descárgala en formato profesional.</p>
+
+                <div id="cv-to-print">
+                    <div class="cv-header">
+                        <div>
+                            <h1 style="margin:0; font-size:1.6rem; color:#333;">[NOMBRE COMPLETO]</h1>
+                            <p style="margin:5px 0 0; font-size:0.85rem; color:#666;">📍 Residencia: España | Disponible para incorporación</p>
+                        </div>
+                        <div style="text-align:right; font-size:0.7rem; font-weight:bold; color:var(--euro-blue);">CURRICULUM VITAE</div>
                     </div>
-                    
-                    <div class="cv-section-title">Perfil Profesional</div>
-                    <div id="prev-profile" style="margin-top:10px; font-size:0.95rem; font-style: italic;"></div>
-                    
-                    <div class="cv-section-title">Experiencia y Logros Adaptados</div>
-                    <div id="prev-experience" style="margin-top:10px; font-size:0.95rem; white-space:pre-wrap; line-height: 1.6;"></div>
-                    
-                    <div class="cv-section-title">Competencias Clave</div>
-                    <div id="prev-skills" style="margin-top:10px; font-size:0.9rem; font-weight: 600; color: #555;"></div>
+
+                    <div class="cv-row">
+                        <div class="cv-left">Perfil Profesional</div>
+                        <div class="cv-right" id="res-profile"></div>
+                    </div>
+
+                    <div class="cv-row">
+                        <div class="cv-left">Experiencia Laboral</div>
+                        <div class="cv-right" id="res-experience" style="white-space: pre-wrap;"></div>
+                    </div>
+
+                    <div class="cv-row">
+                        <div class="cv-left">Competencias</div>
+                        <div class="cv-right" id="res-skills"></div>
+                    </div>
                 </div>
 
-                <div class="nora-advice">
-                    <strong>💡 Consejo de Nora:</strong> He "traducido" tus funciones a un lenguaje que los reclutadores en España valoran más. Recuerda revisar bien las fechas y nombres de las empresas.
-                </div>
-
-                <a href="https://wa.me/TUNUMERODEWHATSAPP" class="wa-check" target="_blank">
-                    💬 ¿Quieres que Nora revise este CV personalmente?
-                </a>
+                <button class="btn-tool" onclick="downloadPDF()" style="background:#004494;">📥 Descargar mi CV en PDF</button>
                 
-                <button class="btn-tool" style="background:#333; margin-top: 15px;" onclick="window.location.reload()">Empezar con otro perfil</button>
+                <div class="nora-advice">
+                    <strong>💡 El toque de Nora:</strong> Este formato es ideal para el PEAC y para empresas españolas. Si necesitas una revisión personalizada, haz clic abajo.
+                </div>
+
+                <a href="https://wa.me/34tu_numero" class="btn-tool" style="background:#25D366;">💬 Enviar a Nora para revisión final</a>
+                <button class="btn-tool" style="background:#333;" onclick="window.location.reload()">Empezar con otro puesto</button>
             </div>
         </div>
     </main>
@@ -127,31 +137,22 @@
             event.currentTarget.classList.add('active');
             
             const advice = document.getElementById('advice-level');
+            advice.innerHTML = level === 'operativo' ? 
+                "<strong>Consejo:</strong> Usaremos términos de eficiencia y polivalencia." : 
+                "<strong>Enfoque PEAC:</strong> Usaremos terminología técnica y normativa oficial para tu acreditación.";
             advice.classList.remove('hidden');
             document.getElementById('btn-next-1').classList.remove('hidden');
 
-            if(level === 'operativo') {
-                advice.innerHTML = "<strong>Perfil Operativo:</strong> Nos enfocaremos en tu rapidez, puntualidad y experiencia directa. Las empresas aquí valoran mucho la polivalencia.";
-                document.getElementById('step2-title').innerText = "Tu experiencia práctica";
-                document.getElementById('step2-desc').innerText = "Dime qué tareas hacías en tus empleos anteriores (no importa si fue en otro país).";
-            } else {
-                advice.innerHTML = "<strong>Perfil Profesional:</strong> Resaltaremos tus competencias técnicas y logros. Ideal para LinkedIn y puestos de oficina o titulados.";
-                document.getElementById('step2-title').innerText = "Tu trayectoria profesional";
-                document.getElementById('step2-desc').innerText = "Resume tu experiencia técnica, proyectos clave o hitos académicos (TFG, prácticas, etc).";
-            }
-            document.getElementById('progress-fill').style.width = "35%";
-        }
-
-        function goToStep(s) {
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.add('hidden');
-            document.getElementById('step3').classList.add('hidden');
-            document.getElementById('step' + s).classList.remove('hidden');
-            document.getElementById('progress-fill').style.width = (s === 2 ? 50 : 75) + "%";
+            document.getElementById('step2-title').innerText = level === 'operativo' ? "Tus trabajos realizados" : "Tu trayectoria y formación técnica";
+            document.getElementById('step2-desc').innerText = level === 'operativo' ? "Describe las tareas que hacías habitualmente." : "Resume tu experiencia o proyectos destacados.";
         }
 
         function validateStep2() {
-            if(document.getElementById('cv-input').value.trim().length < 15) {
+            const input = document.getElementById('cv-input').value.trim();
+            // Filtro de coherencia: Mínimo 45 caracteres y al menos 6 palabras
+            const words = input.split(/\s+/).filter(w => w.length > 1).length;
+            
+            if(input.length < 45 || words < 7) {
                 document.getElementById('err2').style.display = 'block';
                 return;
             }
@@ -164,48 +165,57 @@
                 document.getElementById('err3').style.display = 'block';
                 return;
             }
-            document.getElementById('err3').style.display = 'none';
             generateCV();
+        }
+
+        function goToStep(s) {
+            document.querySelectorAll('[id^="step"]').forEach(d => d.classList.add('hidden'));
+            document.getElementById('step' + s).classList.remove('hidden');
+            document.getElementById('progress-fill').style.width = (s === 2 ? 50 : 75) + "%";
         }
 
         function generateCV() {
             const cv = document.getElementById('cv-input').value;
             const job = document.getElementById('job-input').value;
             
-            let profile = "";
-            let exp = cv;
-            let skills = "";
+            let profile = selectedLevel === 'profesional' ? 
+                "Profesional con sólida base técnica y capacidad para la gestión de procesos complejos. Orientado/a a la acreditación oficial de competencias y al cumplimiento de estándares de calidad y seguridad." : 
+                "Persona proactiva y responsable con experiencia en el sector operativo. Enfocada en la optimización de tareas, puntualidad y soporte eficiente al equipo de trabajo.";
+            
+            let exp = cv.replace(/trabajé/gi, "Desempeñé funciones profesionales en")
+                        .replace(/hice/gi, "Ejecuté procesos operativos de")
+                        .replace(/ayudé/gi, "Colaboré técnicamente en")
+                        .replace(/limpieza/gi, "mantenimiento e higienización de instalaciones")
+                        .replace(/administrativo/gi, "gestión documental y soporte administrativo");
 
-            if(selectedLevel === 'profesional') {
-                profile = "Profesional con sólida formación y orientación a resultados. Capacidad analítica y dominio de herramientas técnicas del sector, con enfoque en la mejora de procesos y compromiso con los objetivos corporativos.";
-                exp = cv.replace(/trabajé/gi, "Desempeñé funciones de responsabilidad en")
-                        .replace(/estudié/gi, "Desarrollé especialización técnica en")
-                        .replace(/hice/gi, "Lideré y gestioné")
-                        .replace(/sé usar/gi, "Poseo dominio avanzado en")
-                        .replace(/ayudé/gi, "Contribuí activamente en");
-                skills = "Gestión de proyectos, Comunicación corporativa, Resolución de problemas, Adaptabilidad técnica.";
-            } else {
-                profile = "Persona proactiva y responsable con experiencia en entornos operativos exigentes. Alta capacidad de trabajo en equipo, puntualidad y enfoque en el cumplimiento de estándares de calidad.";
-                exp = cv.replace(/trabajé/gi, "Desarrollé funciones profesionales en")
-                        .replace(/limpieza/gi, "mantenimiento e higienización")
-                        .replace(/ayudé/gi, "Colaboré en las tareas de");
-                skills = "Polivalencia, Resolución de incidencias, Compromiso, Trabajo bajo presión.";
-            }
-
-            document.getElementById('prev-profile').innerText = profile;
-            document.getElementById('prev-experience').innerText = exp;
-            document.getElementById('prev-skills').innerText = skills;
+            document.getElementById('res-profile').innerText = profile;
+            document.getElementById('res-experience').innerText = exp;
+            document.getElementById('res-skills').innerText = selectedLevel === 'profesional' ? 
+                "Gestión técnica, Normativa de calidad, Adaptabilidad, Resolución de problemas complejos." : 
+                "Polivalencia, Responsabilidad, Trabajo en equipo, Eficiencia operativa.";
             
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('result-step').classList.remove('hidden');
             document.getElementById('progress-fill').style.width = "100%";
         }
+
+        function downloadPDF() {
+            const element = document.getElementById('cv-to-print');
+            const opt = {
+                margin: [0.5, 0.5],
+                filename: 'Mi_CV_Profesional.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
     </script>
 </body>
 </html>
+           
 
-
-                      
+   
    
           
 
