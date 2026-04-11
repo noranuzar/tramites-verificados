@@ -1,216 +1,106 @@
 <!DOCTYPE html>
+<html lang="es" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adaptador de CV Inteligente</title>
-<meta name="description" content="Guías gratuitas para entender los trámites en España sin complicarte. Empadronamiento, extranjería, NIE, TIE, regularización 2026 y más.">
-<meta name="author" content="Nora Núñez Zárate">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://hazlotumismo.es/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Hazlo Tú Mismo _Adm">
-<meta property="og:title" content="Trámites en España, explicados por fin">
-<meta property="og:description" content="Guías gratuitas paso a paso, con palabras normales.">
-<meta property="og:url" content="https://hazlotumismo.es/">
-<meta property="og:image" content="https://hazlotumismo.es/img/og-cover.jpg">
-<meta property="og:locale" content="es_ES">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f3ef;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
-
-h1 {
-    text-align: center;
-}
-
-textarea {
-    width: 100%;
-    height: 120px;
-    margin-top: 10px;
-}
-
-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background:#B2AC88;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.progress {
-    height: 10px;
-    background: #ddd;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.progress-bar {
-    height: 10px;
-    width: 0%;
-    background: #9caf88;
-    border-radius: 5px;
-}
-
-.hidden {
-    display: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptador de CV Inteligente — Hazlo Tú Mismo</title>
+    <meta name="description" content="Adapta tu CV a las ofertas de empleo en España de forma profesional y gratuita.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600&family=Libre+Franklin:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css"> <style>
+        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; }
+        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; }
+        .tool-container { max-width: 700px; margin: 120px auto 60px; padding: 20px; }
+        .tool-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e0ddd5; }
+        h1 { font-family: 'Playfair Display', serif; color: #333; text-align: center; margin-bottom: 30px; }
+        .progress-bar { height: 6px; background: #eee; border-radius: 10px; margin-bottom: 40px; overflow: hidden; }
+        #progress-fill { height: 100%; background: var(--sage); width: 33%; transition: all 0.5s ease; }
+        textarea { width: 100%; height: 180px; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-family: inherit; font-size: 1rem; margin-top: 10px; box-sizing: border-box; resize: vertical; }
+        .btn-tool { background: var(--sage); color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; transition: background 0.3s; }
+        .btn-tool:hover { background: var(--sage-dark); }
+        .hidden { display: none; }
+        #optimized-result { background: #f9fbf8; padding: 25px; border-radius: 12px; border: 1px dashed var(--sage); white-space: pre-wrap; color: #444; line-height: 1.8; margin-bottom: 20px; }
+        .step-title { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1.2rem; }
+    </style>
 </head>
 
 <body>
+    <header class="nav solid">
+        <div class="nav__inner">
+            <a href="../index.html" class="nav__logo">Hazlo Tú Mismo <i>_Adm</i></a>
+            <nav class="nav__menu">
+                <a href="../index.html#guias" class="nav__link">Volver a Guías</a>
+            </nav>
+        </div>
+    </header>
 
-<div class="container">
-<h1>💼 Adapta tu CV en 1 minuto</h1>
+    <main class="tool-container">
+        <div class="tool-card">
+            <h1>Adaptador de CV</h1>
+            
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
 
-<div class="progress">
-<div class="progress-bar" id="progress"></div>
-</div>
+            <div id="step1">
+                <div class="step-title"><span>1️⃣</span> Pega tu experiencia actual</div>
+                <p style="font-size: 0.9rem; color: #666;">No importa si está desordenado, yo lo arreglo.</p>
+                <textarea id="cv-input" placeholder="Ej: He trabajado 2 años limpiando oficinas y ayudé en la recepción..."></textarea>
+                <button class="btn-tool" onclick="goToStep(2)">Siguiente Paso</button>
+            </div>
 
-<div class="card" id="step1">
-<h3>1️⃣ Pega tu CV</h3>
-<p>💡 No te preocupes si no está perfecto</p>
-<textarea id="cv"></textarea>
-<button onclick="nextStep(2)">Siguiente</button>
-</div>
+            <div id="step2" class="hidden">
+                <div class="step-title"><span>2️⃣</span> ¿A qué puesto aspiras?</div>
+                <p style="font-size: 0.9rem; color: #666;">Pega aquí la oferta de empleo o el nombre del puesto.</p>
+                <textarea id="job-input" placeholder="Ej: Se busca personal de limpieza con atención al cliente para hotel..."></textarea>
+                <button class="btn-tool" onclick="runOptimization()">Optimizar mi perfil</button>
+            </div>
 
-<div class="card hidden" id="step2">
-<h3>2️⃣ Pega la oferta de trabajo</h3>
-<p>💡 Ejemplo: atención al cliente, ventas, trabajo en equipo...</p>
-<textarea id="job"></textarea>
-<button onclick="nextStep(3)">Siguiente</button>
-</div>
+            <div id="result-step" class="hidden">
+                <div class="step-title" style="color: var(--sage-dark);"><span>✅</span> Perfil Optimizado</div>
+                <p style="margin-bottom: 20px;">Copia este texto y úsalo en tu nuevo currículum:</p>
+                <div id="optimized-result"></div>
+                <button class="btn-tool" style="background: #333;" onclick="window.location.reload()">Empezar de nuevo</button>
+            </div>
+        </div>
+    </main>
 
-<div class="card hidden" id="step3">
-<h3>3️⃣ Analizando tu perfil...</h3>
-<p>⏳ Estamos mejorando tu CV</p>
-<button onclick="processCV()">Generar resultado</button>
-</div>
-
-<div class="card hidden" id="result">
-<h3>✅ Tu CV optimizado</h3>
-<p id="optimized"></p>
-
-<h3>✨ Mejoras realizadas</h3>
-<ul id="improvements"></ul>
-
-<h3>📌 Recomendaciones</h3>
-<ul id="tips"></ul>
-
-<button onclick="copyResult()">📋 Copiar CV</button>
-</div>
-
-</div>
-
-<script>
-function nextStep(step) {
-    document.querySelectorAll('.card').forEach(el => el.classList.add('hidden'));
-    document.getElementById('step' + step).classList.remove('hidden');
-
-    let progress = step * 30;
-    document.getElementById('progress').style.width = progress + '%';
-}
-
-function extractKeywords(text) {
-    let words = text.toLowerCase().match(/\b\w+\b/g);
-    let common = ["de","la","el","en","y","a","con","para"];
-    return [...new Set(words.filter(w => w.length > 4 && !common.includes(w)))];
-}
-
-function improveText(cv, keywords) {
-    let improved = cv;
-
-    let replacements = {
-        "trabajé": "Desarrollé funciones profesionales en",
-        "ayudé": "Colaboré activamente en",
-        "hice": "Ejecuté tareas relacionadas con",
-        "limpieza": "mantenimiento y limpieza de espacios",
-        "tienda": "entorno comercial y atención al cliente"
-    };
-
-    let improvements = [];
-
-    for (let key in replacements) {
-        if (improved.includes(key)) {
-            improvements.push(`Antes: ${key} → Después: ${replacements[key]}`);
-            improved = improved.replaceAll(key, replacements[key]);
+    <script>
+        function goToStep(s) {
+            if(s === 2 && document.getElementById('cv-input').value.length < 5) {
+                alert("Por favor, escribe algo sobre tu experiencia.");
+                return;
+            }
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('progress-fill').style.width = "66%";
         }
-    }
 
-    keywords.slice(0,5).forEach(k => {
-        if (!improved.includes(k)) {
-            improved += ", con experiencia en " + k;
+        function runOptimization() {
+            const cv = document.getElementById('cv-input').value;
+            const job = document.getElementById('job-input').value;
+
+            if(job.length < 5) {
+                alert("Dime a qué puesto quieres aplicar.");
+                return;
+            }
+
+            // Motor de mejora de Nora
+            let final = cv
+                .replace(/trabajé/gi, "Desarrollé funciones profesionales")
+                .replace(/hice/gi, "Ejecuté tareas técnicas")
+                .replace(/ayudé/gi, "Colaboré activamente")
+                .replace(/limpieza/gi, "mantenimiento e higienización de espacios")
+                .replace(/tienda/gi, "sector retail y atención comercial")
+                .replace(/cuidé/gi, "Supervisé y presté atención a");
+
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('result-step').classList.remove('hidden');
+            document.getElementById('optimized-result').innerText = final;
+            document.getElementById('progress-fill').style.width = "100%";
         }
-    });
-
-    return { improved, improvements };
-}
-
-function processCV() {
-    let cv = document.getElementById('cv').value;
-    let job = document.getElementById('job').value;
-
-    let keywords = extractKeywords(job);
-    let result = improveText(cv, keywords);
-
-    document.getElementById('optimized').innerText = result.improved;
-
-    let improvementsList = document.getElementById('improvements');
-    improvementsList.innerHTML = "";
-    result.improvements.forEach(i => {
-        let li = document.createElement('li');
-        li.innerText = i;
-        improvementsList.appendChild(li);
-    });
-
-    let tips = [
-        "Añade logros concretos (años, resultados)",
-        "Incluye palabras clave de la oferta",
-        "Sé claro y directo",
-        "Adapta tu CV a cada empleo"
-    ];
-
-    let tipsList = document.getElementById('tips');
-    tipsList.innerHTML = "";
-    tips.forEach(t => {
-        let li = document.createElement('li');
-        li.innerText = t;
-        tipsList.appendChild(li);
-    });
-
-    document.querySelectorAll('.card').forEach(el => el.classList.add('hidden'));
-    document.getElementById('result').classList.remove('hidden');
-    document.getElementById('progress').style.width = "100%";
-}
-
-function copyResult() {
-    let text = document.getElementById('optimized').innerText;
-    navigator.clipboard.writeText(text);
-    alert("CV copiado ✅");
-}
-</script>
-
+    </script>
 </body>
 </html>
