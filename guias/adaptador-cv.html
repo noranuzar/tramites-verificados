@@ -3,127 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adaptador de CV Inteligente — Hazlo Tú Mismo</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600&family=Libre+Franklin:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Constructor y Adaptador de CV — Hazlo Tú Mismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Libre+Franklin:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     
     <style>
-        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; --ink: #1a1a1a; }
-        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; color: var(--ink); }
-        .tool-container { max-width: 750px; margin: 100px auto 60px; padding: 20px; }
-        .tool-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e0ddd5; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 10px; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 0.95rem; }
+        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; }
+        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; padding-top: 80px; }
+        .tool-container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .tool-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .progress-bar { height: 6px; background: #eee; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
+        #progress-fill { height: 100%; background: var(--sage); width: 25%; transition: 0.4s; }
         
-        /* Checklist para orientar al usuario */
-        .checklist { background: #fdfaf3; border: 1px solid #f1ece0; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
-        .checklist h4 { margin-top: 0; color: #8a7b5d; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .check-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 0.9rem; }
-        .check-item input { margin-top: 3px; accent-color: var(--sage); }
+        textarea { width: 100%; height: 150px; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-family: inherit; margin-top: 10px; box-sizing: border-box; transition: border-color 0.3s; }
+        textarea:focus { border-color: var(--sage); outline: none; }
+        
+        .btn-tool { background: var(--sage); color: white; border: none; padding: 16px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; }
+        .btn-tool:disabled { background: #ccc; cursor: not-allowed; }
 
-        .progress-bar { height: 6px; background: #eee; border-radius: 10px; margin-bottom: 40px; overflow: hidden; }
-        #progress-fill { height: 100%; background: var(--sage); width: 25%; transition: all 0.5s ease; }
+        /* Estilo de la Vista Previa */
+        .cv-preview { background: white; border: 1px solid #ddd; padding: 40px; margin-top: 20px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); color: #333; }
+        .cv-header { border-bottom: 2px solid var(--sage); padding-bottom: 10px; margin-bottom: 20px; }
+        .cv-section-title { color: var(--sage-dark); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; margin-top: 20px; border-bottom: 1px solid #eee; }
+        .cv-body { font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; margin-top: 10px; }
         
-        textarea { width: 100%; height: 160px; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-family: inherit; font-size: 0.95rem; margin-top: 10px; box-sizing: border-box; }
-        .btn-tool { background: var(--sage); color: white; border: none; padding: 16px 30px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; transition: 0.3s; }
-        .btn-tool:hover { background: var(--sage-dark); transform: translateY(-2px); }
         .hidden { display: none; }
-        
-        #optimized-result { background: #f9fbf8; padding: 25px; border-radius: 12px; border: 1px dashed var(--sage); white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
-        .nora-tip { background: #eef2eb; padding: 15px; border-radius: 10px; border-left: 4px solid var(--sage); margin-top: 20px; font-size: 0.85rem; font-style: italic; }
+        .error-msg { color: #d9534f; font-size: 0.85rem; margin-top: 5px; display: none; }
     </style>
 </head>
 
 <body>
     <header class="nav solid">
-        <div class="nav__inner">
-            <a href="../index.html" class="nav__logo">Hazlo Tú Mismo <i>_Adm</i></a>
-        </div>
+        <div class="nav__inner"><a href="../index.html" class="nav__logo">Hazlo Tú Mismo <i>_Adm</i></a></div>
     </header>
 
     <main class="tool-container">
         <div class="tool-card">
-            <h1>Adaptador de CV</h1>
-            <p class="subtitle">Ajustamos tu experiencia al mercado laboral español</p>
-            
-            <div class="progress-bar">
-                <div id="progress-fill"></div>
-            </div>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
 
             <div id="step1">
-                <h3 style="font-family: 'Playfair Display';">Primero, revisemos lo básico</h3>
-                <p>Antes de escribir, asegúrate de que tu hoja tiene estas secciones obligatorias en España:</p>
-                <div class="checklist">
-                    <h4>Checklist de Estructura:</h4>
-                    <label class="check-item"><input type="checkbox"> <div><strong>Datos de contacto:</strong> Nombre, teléfono, email profesional y zona de residencia (ej: Madrid, España). No hace falta poner estado civil ni religión.</div></label>
-                    <label class="check-item"><input type="checkbox"> <div><strong>Perfil profesional:</strong> Un resumen de 3 líneas sobre quién eres y qué sabes hacer.</div></label>
-                    <label class="check-item"><input type="checkbox"> <div><strong>Experiencia laboral:</strong> De la más reciente a la más antigua.</div></label>
-                    <label class="check-item"><input type="checkbox"> <div><strong>Formación:</strong> Tus títulos (si están homologados o en proceso, menciónalo).</div></label>
+                <h2 style="font-family: 'Playfair Display';">¿Tienes todo lo necesario?</h2>
+                <p>Para que tu CV sea efectivo en España, marca lo que ya tengas:</p>
+                <div style="background:#f9f9f9; padding:20px; border-radius:12px; margin:20px 0;">
+                    <label style="display:block; margin-bottom:10px;"><input type="checkbox" class="step1-check"> Datos de contacto (sin religión ni estado civil)</label>
+                    <label style="display:block; margin-bottom:10px;"><input type="checkbox" class="step1-check"> Títulos educativos (u homologaciones)</label>
+                    <label style="display:block;"><input type="checkbox" class="step1-check"> Borrador de tu experiencia laboral</label>
                 </div>
-                <button class="btn-tool" onclick="goToStep(2)">Ya tengo mi borrador listo →</button>
+                <button class="btn-tool" onclick="validateStep1()">Continuar →</button>
             </div>
 
             <div id="step2" class="hidden">
-                <h3>¿Qué has hecho hasta ahora?</h3>
-                <p style="font-size: 0.9rem; color: #666;">Copia y pega aquí la descripción de tus trabajos anteriores.</p>
-                <textarea id="cv-input" placeholder="Ej: He trabajado en hostelería atendiendo mesas y también limpiaba la cocina al cerrar..."></textarea>
-                <button class="btn-tool" onclick="goToStep(3)">Siguiente: La Oferta →</button>
+                <h2>Tu experiencia actual</h2>
+                <p>Escribe o pega aquí lo que has hecho en tus trabajos anteriores.</p>
+                <textarea id="cv-input" placeholder="Ej: Fui cajera 3 años, reponía stock y hacía cierres de caja..."></textarea>
+                <p id="err2" class="error-msg">⚠️ Por favor, cuéntame un poco más sobre tu experiencia.</p>
+                <button class="btn-tool" onclick="validateStep2()">Siguiente: La Oferta →</button>
             </div>
 
             <div id="step3" class="hidden">
-                <h3>¿A qué puesto quieres aplicar?</h3>
-                <p style="font-size: 0.9rem; color: #666;">Pega aquí la descripción de la oferta de empleo que viste en Infojobs, LinkedIn, etc.</p>
-                <textarea id="job-input" placeholder="Ej: Se busca camarero/a con capacidad de organización y mantenimiento de estándares de higiene..."></textarea>
-                <button class="btn-tool" onclick="runOptimization()">Optimizar mis palabras clave ✨</button>
+                <h2>¿A qué puesto aplicas?</h2>
+                <p>Pega aquí la descripción del empleo que te interesa.</p>
+                <textarea id="job-input" placeholder="Ej: Se busca dependiente/a responsable con experiencia en cobro y atención..."></textarea>
+                <p id="err3" class="error-msg">⚠️ Necesito saber qué pide la empresa para poder ayudarte.</p>
+                <button class="btn-tool" onclick="validateStep3()">Generar Vista Previa ✨</button>
             </div>
 
             <div id="result-step" class="hidden">
-                <h3 style="color: var(--sage-dark);">¡Listo! Aquí tienes tu CV "traducido"</h3>
-                <p style="font-size: 0.9rem;">He cambiado tus palabras por términos que los reclutadores y las máquinas (ATS) valoran más en España:</p>
-                <div id="optimized-result"></div>
+                <h2 style="color: var(--sage-dark);">Tu Borrador Sugerido</h2>
+                <p>Así es como debería estructurarse y leerse tu experiencia profesional:</p>
                 
-                <div class="nora-tip">
-                    <strong>Consejo de Nora:</strong> Si en tu país hacías muchas cosas (eras "multitarea"), aquí es mejor destacar las que coinciden con la oferta. No mientas, solo usa las palabras adecuadas.
+                <div class="cv-preview" id="cv-preview-content">
+                    <div class="cv-header">
+                        <h3 style="margin:0;">[TU NOMBRE Y APELLIDOS]</h3>
+                        <p style="margin:0; font-size:0.8rem;">Teléfono: 000 000 000 | Email: tu@email.com | Madrid, España</p>
+                    </div>
+                    
+                    <div class="cv-section-title">Perfil Profesional</div>
+                    <div class="cv-body" id="preview-profile"></div>
+
+                    <div class="cv-section-title">Experiencia Laboral Adaptada</div>
+                    <div class="cv-body" id="preview-experience"></div>
+
+                    <div class="cv-section-title">Formación y Otros</div>
+                    <div class="cv-body">[Tus títulos o cursos realizados]</div>
                 </div>
-                <button class="btn-tool" style="background: var(--ink);" onclick="window.location.reload()">Empezar con otro puesto</button>
+
+                <div style="background:#eef2eb; padding:15px; border-radius:10px; margin-top:20px; font-size:0.9rem;">
+                    <strong>💡 Nota de Nora:</strong> He adaptado tus palabras para que suenen más técnicas y profesionales según lo que busca esa oferta. ¡Copia este borrador y llévalo a tu documento!
+                </div>
+                <button class="btn-tool" style="background:#333;" onclick="window.location.reload()">Empezar de nuevo</button>
             </div>
         </div>
     </main>
 
     <script>
-        function goToStep(s) {
-            document.querySelectorAll('[id^="step"]').forEach(el => el.classList.add('hidden'));
+        function validateStep1() {
+            const checks = document.querySelectorAll('.step1-check:checked');
+            if(checks.length < 1) {
+                alert("Por favor, marca al menos una opción para continuar.");
+                return;
+            }
+            showStep(2, 50);
+        }
+
+        function validateStep2() {
+            const val = document.getElementById('cv-input').value.trim();
+            if(val.length < 15) {
+                document.getElementById('err2').style.display = 'block';
+                return;
+            }
+            document.getElementById('err2').style.display = 'none';
+            showStep(3, 75);
+        }
+
+        function validateStep3() {
+            const val = document.getElementById('job-input').value.trim();
+            if(val.length < 10) {
+                document.getElementById('err3').style.display = 'block';
+                return;
+            }
+            document.getElementById('err3').style.display = 'none';
+            generatePreview();
+        }
+
+        function showStep(s, progress) {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
             document.getElementById('step' + s).classList.remove('hidden');
-            let progress = (s === 2) ? 50 : (s === 3) ? 75 : 25;
             document.getElementById('progress-fill').style.width = progress + "%";
         }
 
-        function runOptimization() {
+        function generatePreview() {
             const cv = document.getElementById('cv-input').value;
-            const job = document.getElementById('job-input').value.toLowerCase();
+            const job = document.getElementById('job-input').value;
 
-            // Lógica de "traducción" profesional de Nora
-            let final = cv
+            // Lógica de adaptación
+            let optimized = cv
                 .replace(/trabajé/gi, "Desarrollé funciones profesionales")
-                .replace(/hice/gi, "Ejecuté tareas técnicas y operativas")
+                .replace(/hice/gi, "Ejecuté tareas operativas")
+                .replace(/atendí/gi, "Gestioné de forma integral la atención al cliente")
                 .replace(/limpieza/gi, "mantenimiento de estándares de higienización")
-                .replace(/atendí/gi, "Presté servicio de atención al cliente y gestión de")
-                .replace(/ayudé/gi, "Colaboré en la optimización de")
-                .replace(/cuidé/gi, "Supervisé y garanticé el bienestar de")
-                .replace(/vendedor/gi, "Asesor comercial con enfoque en objetivos")
-                .replace(/arreglé/gi, "Realicé labores de mantenimiento y resolución de incidencias");
+                .replace(/ayudé/gi, "Colaboré en la mejora de procesos de");
 
-            // Si la oferta pide "organización", inyectamos esa palabra clave
-            if(job.includes("organización") || job.includes("responsable")) {
-                final += "\n\n(Nota: He reforzado tu perfil con un enfoque en la organización y responsabilidad personal).";
-            }
+            // Crear Perfil automático
+            let profile = "Profesional con experiencia en el sector, enfocado en cumplir los objetivos de " + job.substring(0, 50) + "... destacando por mi compromiso y capacidad de adaptación al mercado español.";
 
+            document.getElementById('preview-profile').innerText = profile;
+            document.getElementById('preview-experience').innerText = optimized;
+            
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('result-step').classList.remove('hidden');
-            document.getElementById('optimized-result').innerText = final;
             document.getElementById('progress-fill').style.width = "100%";
         }
     </script>
 </body>
 </html>
+ 
