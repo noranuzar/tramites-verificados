@@ -3,34 +3,41 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adaptador de CV por Niveles — Hazlo Tú Mismo</title>
+    <title>Constructor y Adaptador de CV — Hazlo Tú Mismo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Libre+Franklin:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     
     <style>
-        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; }
-        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; padding-top: 60px; }
+        :root { --sage: #9caf88; --sage-dark: #7e8f6e; --linen: #f5f3ef; --ink: #1a1a1a; }
+        body { background-color: var(--linen); font-family: 'Libre Franklin', sans-serif; padding-top: 60px; color: var(--ink); }
         .tool-container { max-width: 850px; margin: 40px auto; padding: 20px; }
-        .tool-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .tool-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e0ddd5; }
         
         /* Selectores de nivel */
-        .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
-        .level-card { border: 2px solid #eee; padding: 20px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-align: center; }
-        .level-card:hover { border-color: var(--sage); background: #fdfaf3; }
-        .level-card.active { border-color: var(--sage); background: #f9fbf8; box-shadow: 0 4px 12px rgba(156, 175, 136, 0.2); }
-        .level-card i { font-size: 2rem; display: block; margin-bottom: 10px; }
+        .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+        .level-card { border: 2px solid #eee; padding: 25px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-align: center; background: #fff; }
+        .level-card:hover { border-color: var(--sage); background: #fdfaf3; transform: translateY(-3px); }
+        .level-card.active { border-color: var(--sage); background: #f9fbf8; box-shadow: 0 4px 15px rgba(156, 175, 136, 0.2); }
+        .level-card i { font-size: 2.5rem; display: block; margin-bottom: 12px; }
 
-        .progress-bar { height: 6px; background: #eee; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
-        #progress-fill { height: 100%; background: var(--sage); width: 20%; transition: 0.4s; }
+        .progress-bar { height: 8px; background: #eee; border-radius: 10px; margin-bottom: 40px; overflow: hidden; }
+        #progress-fill { height: 100%; background: var(--sage); width: 25%; transition: 0.5s ease; }
         
-        textarea { width: 100%; height: 150px; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-family: inherit; margin-top: 10px; box-sizing: border-box; }
-        .btn-tool { background: var(--sage); color: white; border: none; padding: 16px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; }
+        textarea { width: 100%; height: 160px; padding: 18px; border: 2px solid #eee; border-radius: 12px; font-family: inherit; font-size: 1rem; margin-top: 10px; box-sizing: border-box; transition: 0.3s; resize: vertical; }
+        textarea:focus { border-color: var(--sage); outline: none; background: #fcfdfb; }
         
-        .cv-preview { background: white; border: 1px solid #ddd; padding: 40px; border-radius: 4px; color: #333; font-family: 'Arial', sans-serif; }
-        .cv-section-title { color: var(--sage-dark); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; margin-top: 20px; border-bottom: 1px solid #eee; letter-spacing: 1px; }
+        .btn-tool { background: var(--sage); color: white; border: none; padding: 18px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; margin-top: 20px; transition: 0.3s; }
+        .btn-tool:hover { background: var(--sage-dark); transform: translateY(-2px); }
+        
+        .cv-preview { background: white; border: 1px solid #ddd; padding: 40px; border-radius: 4px; color: #333; font-family: 'Arial', sans-serif; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .cv-section-title { color: var(--sage-dark); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; margin-top: 25px; border-bottom: 1px solid #eee; letter-spacing: 1.5px; padding-bottom: 5px; }
         
         .hidden { display: none; }
-        .nora-advice { background: #fdfaf3; padding: 15px; border-radius: 10px; border-left: 4px solid #e6ccb2; margin: 20px 0; font-size: 0.9rem; }
+        .nora-advice { background: #fdfaf3; padding: 20px; border-radius: 12px; border-left: 5px solid #e6ccb2; margin: 25px 0; font-size: 0.95rem; line-height: 1.5; }
+        .error-msg { color: #d9534f; font-size: 0.85rem; margin-top: 8px; display: none; font-weight: 600; }
+        
+        .wa-check { background: #25D366; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: 12px; margin-top: 15px; font-weight: 600; transition: 0.3s; }
+        .wa-check:hover { background: #128C7E; opacity: 0.9; }
     </style>
 </head>
 
@@ -44,55 +51,69 @@
             <div class="progress-bar"><div id="progress-fill"></div></div>
 
             <div id="step1">
-                <h2 style="font-family: 'Playfair Display'; text-align:center;">¿Cuál es tu situación actual?</h2>
-                <p style="text-align:center;">Para ayudarte mejor, dime qué tipo de empleo buscas:</p>
+                <h2 style="font-family: 'Playfair Display'; text-align:center; font-size: 2rem;">¿Qué perfil vamos a trabajar?</h2>
+                <p style="text-align:center; color: #666;">Selecciona tu perfil para que Nora pueda orientar tus palabras correctamente:</p>
                 <div class="level-grid">
                     <div class="level-card" onclick="selectLevel('operativo')">
                         <i>🛠️</i>
                         <strong>Sector Operativo</strong>
-                        <p style="font-size:0.8rem; color:666;">Hostelería, Limpieza, Construcción, Almacén, Cuidados.</p>
+                        <p style="font-size:0.8rem; color:#888; margin-top:8px;">Hostelería, Limpieza, Almacén, Cuidados, etc.</p>
                     </div>
                     <div class="level-card" onclick="selectLevel('profesional')">
                         <i>🎓</i>
                         <strong>Sector Profesional / Uni</strong>
-                        <p style="font-size:0.8rem; color:666;">Diseño, Bellas Artes, Administración, Ingeniería, Marketing.</p>
+                        <p style="font-size:0.8rem; color:#888; margin-top:8px;">Administración, Diseño, Ingeniería, recién graduados, etc.</p>
                     </div>
                 </div>
                 <div id="advice-level" class="nora-advice hidden"></div>
-                <button class="btn-tool hidden" id="btn-next-1" onclick="goToStep(2)">Continuar →</button>
+                <button class="btn-tool hidden" id="btn-next-1" onclick="goToStep(2)">Continuar con mi CV →</button>
             </div>
 
             <div id="step2" class="hidden">
-                <h2 id="step2-title">Tu experiencia</h2>
-                <p id="step2-desc"></p>
-                <textarea id="cv-input" placeholder="Cuéntame lo que has hecho..."></textarea>
-                <button class="btn-tool" onclick="goToStep(3)">Siguiente: La Oferta →</button>
+                <h2 id="step2-title" style="font-family: 'Playfair Display';">Tu experiencia</h2>
+                <p id="step2-desc" style="color: #666;"></p>
+                <textarea id="cv-input" placeholder="Ej: Trabajé 2 años como administrativo llevando facturas y atendiendo al público..."></textarea>
+                <p id="err2" class="error-msg">⚠️ Por favor, escribe un poco sobre tu trayectoria para continuar.</p>
+                <button class="btn-tool" onclick="validateStep2()">Siguiente: La Oferta →</button>
             </div>
 
             <div id="step3" class="hidden">
-                <h2>¿A qué puesto aplicas en LinkedIn o Infojobs?</h2>
-                <p>Pega aquí la descripción del anuncio.</p>
-                <textarea id="job-input" placeholder="Ej: Se busca diseñador con conocimientos en..."></textarea>
-                <button class="btn-tool" onclick="generateCV()">Generar mi CV Adaptado ✨</button>
+                <h2 style="font-family: 'Playfair Display';">¿A qué puesto aplicas?</h2>
+                <p style="color: #666;">Pega la descripción de la oferta o el nombre del puesto que buscas en LinkedIn/Infojobs.</p>
+                <textarea id="job-input" placeholder="Ej: Se busca personal para gestión administrativa y soporte comercial..."></textarea>
+                <p id="err3" class="error-msg">⚠️ Necesito saber a qué puesto aspiras para adaptar el texto.</p>
+                <button class="btn-tool" onclick="validateStep3()">Generar mi CV Adaptado ✨</button>
             </div>
 
             <div id="result-step" class="hidden">
-                <h2 style="color: var(--sage-dark);">Tu Propuesta de CV</h2>
+                <h2 style="color: var(--sage-dark); font-family: 'Playfair Display'; text-align: center;">Tu Borrador Profesional</h2>
+                <p style="text-align: center; font-size: 0.9rem; margin-bottom: 25px;">Copia este contenido y pégalo en tu plantilla de currículum.</p>
+                
                 <div class="cv-preview">
                     <div style="text-align:center; margin-bottom:20px;">
-                        <h2 style="margin:0; letter-spacing:2px;">[TU NOMBRE COMPLETO]</h2>
-                        <p style="font-size:0.8rem;">Perfil en LinkedIn | Portfolio Digital | Madrid, España</p>
+                        <h2 style="margin:0; letter-spacing:2px; font-size: 1.4rem;">[TU NOMBRE COMPLETO]</h2>
+                        <p style="font-size:0.8rem; color: #777;">Teléfono | Email | Perfil en LinkedIn | Madrid, España</p>
                     </div>
-                    <div class="cv-section-title">Extracto Profesional</div>
-                    <div id="prev-profile" style="margin-top:10px; font-size:0.95rem;"></div>
                     
-                    <div class="cv-section-title" id="prev-exp-title">Experiencia y Proyectos</div>
-                    <div id="prev-experience" style="margin-top:10px; font-size:0.95rem; white-space:pre-wrap;"></div>
+                    <div class="cv-section-title">Perfil Profesional</div>
+                    <div id="prev-profile" style="margin-top:10px; font-size:0.95rem; font-style: italic;"></div>
+                    
+                    <div class="cv-section-title">Experiencia y Logros Adaptados</div>
+                    <div id="prev-experience" style="margin-top:10px; font-size:0.95rem; white-space:pre-wrap; line-height: 1.6;"></div>
                     
                     <div class="cv-section-title">Competencias Clave</div>
-                    <div id="prev-skills" style="margin-top:10px; font-size:0.95rem;"></div>
+                    <div id="prev-skills" style="margin-top:10px; font-size:0.9rem; font-weight: 600; color: #555;"></div>
                 </div>
-                <button class="btn-tool" style="background:#333;" onclick="window.location.reload()">Hacer otro nivel</button>
+
+                <div class="nora-advice">
+                    <strong>💡 Consejo de Nora:</strong> He "traducido" tus funciones a un lenguaje que los reclutadores en España valoran más. Recuerda revisar bien las fechas y nombres de las empresas.
+                </div>
+
+                <a href="https://wa.me/TUNUMERODEWHATSAPP" class="wa-check" target="_blank">
+                    💬 ¿Quieres que Nora revise este CV personalmente?
+                </a>
+                
+                <button class="btn-tool" style="background:#333; margin-top: 15px;" onclick="window.location.reload()">Empezar con otro perfil</button>
             </div>
         </div>
     </main>
@@ -110,14 +131,15 @@
             document.getElementById('btn-next-1').classList.remove('hidden');
 
             if(level === 'operativo') {
-                advice.innerHTML = "<strong>Consejo para ti:</strong> En este sector valoramos mucho la disponibilidad y la experiencia práctica. Vamos a destacar tu rapidez y responsabilidad.";
-                document.getElementById('step2-title').innerText = "Cuéntame tus trabajos anteriores";
-                document.getElementById('step2-desc').innerText = "No importa si no tienes títulos, dime qué tareas hacías cada día.";
+                advice.innerHTML = "<strong>Perfil Operativo:</strong> Nos enfocaremos en tu rapidez, puntualidad y experiencia directa. Las empresas aquí valoran mucho la polivalencia.";
+                document.getElementById('step2-title').innerText = "Tu experiencia práctica";
+                document.getElementById('step2-desc').innerText = "Dime qué tareas hacías en tus empleos anteriores (no importa si fue en otro país).";
             } else {
-                advice.innerHTML = "<strong>Consejo para Bellas Artes/Profesional:</strong> ¡LinkedIn es tu vitrina! En España se valora el 'Portfolio' y las herramientas digitales (Adobe, Office, etc). Vamos a enfocar tus estudios como experiencia de proyectos.";
-                document.getElementById('step2-title').innerText = "Tus estudios y proyectos";
-                document.getElementById('step2-desc').innerText = "Como acabas de terminar, cuéntame sobre tu TFG, prácticas o proyectos destacados.";
+                advice.innerHTML = "<strong>Perfil Profesional:</strong> Resaltaremos tus competencias técnicas y logros. Ideal para LinkedIn y puestos de oficina o titulados.";
+                document.getElementById('step2-title').innerText = "Tu trayectoria profesional";
+                document.getElementById('step2-desc').innerText = "Resume tu experiencia técnica, proyectos clave o hitos académicos (TFG, prácticas, etc).";
             }
+            document.getElementById('progress-fill').style.width = "35%";
         }
 
         function goToStep(s) {
@@ -125,7 +147,25 @@
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('step' + s).classList.remove('hidden');
-            document.getElementById('progress-fill').style.width = (s*30) + "%";
+            document.getElementById('progress-fill').style.width = (s === 2 ? 50 : 75) + "%";
+        }
+
+        function validateStep2() {
+            if(document.getElementById('cv-input').value.trim().length < 15) {
+                document.getElementById('err2').style.display = 'block';
+                return;
+            }
+            document.getElementById('err2').style.display = 'none';
+            goToStep(3);
+        }
+
+        function validateStep3() {
+            if(document.getElementById('job-input').value.trim().length < 5) {
+                document.getElementById('err3').style.display = 'block';
+                return;
+            }
+            document.getElementById('err3').style.display = 'none';
+            generateCV();
         }
 
         function generateCV() {
@@ -137,16 +177,19 @@
             let skills = "";
 
             if(selectedLevel === 'profesional') {
-                profile = "Graduado/a con sólida formación académica y enfoque en la resolución creativa de problemas. Especializado/a en proyectos de alto impacto visual y capacitado/a para integrarse en entornos profesionales dinámicos.";
-                exp = cv.replace(/estudié/gi, "Desarrollé investigación técnica en")
-                        .replace(/hice/gi, "Lideré la creación de")
-                        .replace(/cuadros/gi, "piezas visuales con enfoque comercial");
-                skills = "Pensamiento Crítico, Herramientas Digitales, Gestión de Proyectos, Adaptabilidad.";
+                profile = "Profesional con sólida formación y orientación a resultados. Capacidad analítica y dominio de herramientas técnicas del sector, con enfoque en la mejora de procesos y compromiso con los objetivos corporativos.";
+                exp = cv.replace(/trabajé/gi, "Desempeñé funciones de responsabilidad en")
+                        .replace(/estudié/gi, "Desarrollé especialización técnica en")
+                        .replace(/hice/gi, "Lideré y gestioné")
+                        .replace(/sé usar/gi, "Poseo dominio avanzado en")
+                        .replace(/ayudé/gi, "Contribuí activamente en");
+                skills = "Gestión de proyectos, Comunicación corporativa, Resolución de problemas, Adaptabilidad técnica.";
             } else {
-                profile = "Persona responsable y proactiva con experiencia en el sector operativo. Enfocada en la eficiencia y el cumplimiento de estándares de calidad y seguridad laboral.";
+                profile = "Persona proactiva y responsable con experiencia en entornos operativos exigentes. Alta capacidad de trabajo en equipo, puntualidad y enfoque en el cumplimiento de estándares de calidad.";
                 exp = cv.replace(/trabajé/gi, "Desarrollé funciones profesionales en")
-                        .replace(/limpieza/gi, "mantenimiento de higienización");
-                skills = "Puntualidad, Trabajo en equipo, Resolución de incidencias, Disponibilidad inmediata.";
+                        .replace(/limpieza/gi, "mantenimiento e higienización")
+                        .replace(/ayudé/gi, "Colaboré en las tareas de");
+                skills = "Polivalencia, Resolución de incidencias, Compromiso, Trabajo bajo presión.";
             }
 
             document.getElementById('prev-profile').innerText = profile;
@@ -160,3 +203,10 @@
     </script>
 </body>
 </html>
+
+
+                      
+   
+          
+
+       
